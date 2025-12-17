@@ -1,5 +1,14 @@
 import Player from './components/player.jsx'
+import GameBoard from './components/gameBoard.jsx'
+import { useState } from 'react'
+import Log from './components/Log.jsx';
 function App() {
+
+  const [activePlayer, setActivePlayer] = useState('X');
+
+  function handleSelectSquare() {
+    setActivePlayer((currActivePlayer) => currActivePlayer === 'X' ? 'O' : 'X');
+  }
 
 
   return (
@@ -7,11 +16,11 @@ function App() {
     <main>
       <div id='game-container'>
 
-        <ol id="players">
-          
-          <Player name="player 1" symbol="X" />
+        <ol id="players" className='highlight-player'>
 
-          <Player name= "Player 2" symbol= "O"/>
+          <Player intialName="player 1" symbol="X" isActive={activePlayer === 'X'} />
+
+          <Player intialName="Player 2" symbol="O" isActive={activePlayer === 'O'} />
 
           {/* <li>
             <span className="player">
@@ -27,11 +36,12 @@ function App() {
 
         </ol>
 
-        GAME BOARDS
+        <GameBoard onSelectSquare={handleSelectSquare} activePlayerSymbol={activePlayer} />
+
 
       </div>
 
-      LOG
+      <Log/>
 
     </main>
 
